@@ -8,7 +8,7 @@ $categoryCane = new Category('Cane','icon-dog.png');
 // var_dump($categoryGatto);
 // var_dump($categoryCane);
 
-$productFood = new Food('Croccantini per taglia media', 'croccantini-cane.jpg', 20.86, $categoryCane, 16, ['Carne di Manzo', 'Mix Verdure'],'2022-10-25');
+$productFood = new Food('Croccantini per taglia media', 'croccantini-cane.jpg', -20.86, $categoryCane, 16, ['Carne di Manzo', 'Mix Verdure'],'2022-10-25');
 $productFood2 = new Food('Croccantini naturali bio', 'croccantini-gatto.jpg', 4.53, $categoryGatto, -2, ['Pollo Vegano', 'Mix Verdure'],'2025-04-15');
 // var_dump($productFood);
 
@@ -40,16 +40,85 @@ $productKennel2 = new Kennel('Cuccia chiusa con pelo', 'cuccia-gatto.jpg', 45 , 
 
 <body>
     <div class="container">
-        <h1 class="text-center my-3">Il tuo negozio sempre con te</h1>
+        <h1 class="text-center my-5 text-uppercase">Il tuo negozio sempre con te</h1>
         <div class="row">
-            <div class="col-6 position-relative my-card">
+            <div class="my-card">
                 <div><img src="./img/<?php echo $productFood->category->getIcon() ?>" alt="" class="logo"></div>
                 <div><img src="./img/<?php echo $productFood->getImage() ?>" alt="" class="img-box"></div>
-                <div class="title"><?php echo $productFood->getTitle()  ?></div>
-                <div><?php echo $productFood->getWeight() . ' Kg'  ?></div>
-                <div class="price"><?php echo $productFood->getPrice() . ' €'  ?></div>
-                <div><?php echo $productFood->getExpirationDate()  ?></div>
-                <div><?php echo '<span>Ingredienti:</span> '; foreach($productFood->getIngredients() as $ingredient) echo $ingredient . ' '?></div>
+                <div class="p-2 info">
+                    <div class="title"><?php echo $productFood->getTitle()  ?></div>
+                    <div>
+                        <?php 
+                        if($productFood->getAvaliable()){
+                            echo "<span class='text-success'>Available</span>";
+                        }else{
+                            echo "<span class='text-danger'>Not Available</span>";
+                        }
+                        ?>
+                    </div>
+                    <div class="price"><?php echo $productFood->getPrice() . ' €'  ?></div>
+                    <div><?php echo ($productFood->getWeight()) ? ($productFood->getWeight() . ' Kg') : 'Leggero'?></div>
+                    <div><?php echo $productFood->getExpirationDate()  ?></div>
+                    <div><?php echo '<span>Ingredienti:</span> '; foreach($productFood->getIngredients() as $ingredient) echo $ingredient . ' '?></div>
+                </div>
+            </div>
+            <div class="my-card">
+                <div><img src="./img/<?php echo $productFood2->category->getIcon() ?>" alt="" class="logo"></div>
+                <div><img src="./img/<?php echo $productFood2->getImage() ?>" alt="" class="img-box"></div>
+                <div class="p-2 info">
+                    <div class="title"><?php echo $productFood2->getTitle()  ?></div>
+                    <div>
+                        <?php 
+                        if($productFood2->getAvaliable()){
+                            echo "<span class='text-success'>Available</span>";
+                        }else{
+                            echo "<span class='text-danger'>Not Available</span>";
+                        }
+                        ?>
+                    </div>
+                    <div class="price"><?php echo $productFood2->getPrice() . ' €'  ?></div>
+                    <div><?php echo ($productFood2->getWeight()) ? ($productFood2->getWeight() . ' Kg') : 'Leggero'?></div>
+                    <div><?php echo $productFood2->getExpirationDate()  ?></div>
+                    <div><?php echo '<span>Ingredienti:</span> '; foreach($productFood2->getIngredients() as $ingredient) echo $ingredient . ' '?></div>
+                </div>
+            </div>
+            <div class="my-card">
+                <div><img src="./img/<?php echo $productGame->category->getIcon() ?>" alt="" class="logo"></div>
+                <div><img src="./img/<?php echo $productGame->getImage() ?>" alt="" class="img-box"></div>
+                <div class="p-2 info">
+                    <div class="title"><?php echo $productGame->getTitle()  ?></div>
+                    <div>
+                        <?php 
+                        if($productGame->getAvaliable()){
+                            echo "<span class='text-success'>Available</span>";
+                        }else{
+                            echo "<span class='text-danger'>Not Available</span>";
+                        }
+                        ?>
+                    </div>
+                    <div class="price"><?php echo $productGame->getPrice() . ' €'  ?></div>
+                    <div><?php echo '<span>Dimensioni:</span> ' . $productGame->getsize()  ?></div>
+                    <div><?php echo '<span>Materiali:</span> '; foreach($productGame->getmaterial() as $ingredient) echo $ingredient . ' '?></div>
+                </div>
+            </div>
+            <div class="my-card">
+                <div><img src="./img/<?php echo $productGame2->category->getIcon() ?>" alt="" class="logo"></div>
+                <div><img src="./img/<?php echo $productGame2->getImage() ?>" alt="" class="img-box"></div>
+                <div class="p-2 info">
+                    <div class="title"><?php echo $productGame2->getTitle()  ?></div>
+                    <div>
+                        <?php 
+                        if($productGame2->getAvaliable()){
+                            echo "<span class='text-success'>Available</span>";
+                        }else{
+                            echo "<span class='text-danger'>Not Available</span>";
+                        }
+                        ?>
+                    </div>
+                    <div class="price"><?php echo $productGame2->getPrice() . ' €'  ?></div>
+                    <div><?php echo '<span>Dimensioni:</span> ' . $productGame2->getsize()  ?></div>
+                    <div><?php echo '<span>Materiali:</span> '; foreach($productGame2->getmaterial() as $ingredient) echo $ingredient . ' '?></div>
+                </div>
             </div>
         </div>
     </div>

@@ -6,20 +6,37 @@
 }
 body{
     font-family: 'Roboto', sans-serif;
+    background-color: rgb(207, 207, 207);
 }
 img{
     max-width: 100%;
 }
 /****************** card *******************/
 .my-card{
+    background-color: white;
     border-radius: 1rem;
     border: 1px solid black;
+    position: relative;
+    flex: 0 0 auto;
+    margin: 10px;
+    width: calc(100% / 3 - 20px);
 }
 .logo{
     position: absolute;
     width: 50px;
-    top:0; right: 0;
+    top: 10px; right: 10px;
 }
 .img-box{
-
+    margin-top: 10px;
+}
+.info >*{
+    padding-bottom: 0.2rem;
+}
+.title{
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+.price{
+    font-size: 1.1rem;
+    color: red;
 }

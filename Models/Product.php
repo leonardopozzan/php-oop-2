@@ -13,7 +13,7 @@ class Product {
         $this->setImage($_image);
         $this->setPrice($_price);
         $this->category = $_category;
-        $this->setAvaliable();
+        $this->setAvaliable($_price);
     }
     public function getTitle()
     {
@@ -50,7 +50,7 @@ class Product {
         if($price > 0){
             $this->price = $price;
         }else{
-            $this->price = 0;
+            $this->price = abs($price);
         }
         return $this;
     }
@@ -58,9 +58,9 @@ class Product {
     {
         return $this->avaliable;
     }
-    private function setAvaliable()
+    private function setAvaliable($price)
     {
-        if($this->price == 0){
+        if($price <= 0){
             $this->avaliable = false;
         }else{
             $this->avaliable = true;
