@@ -1,4 +1,5 @@
 <?php
+include_once __DIR__ . '/Category.php';
 class Product {
     protected String $title;
     protected String $image;

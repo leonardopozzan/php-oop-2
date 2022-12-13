@@ -1,6 +1,4 @@
 <?php
-include_once __DIR__ . '/Models/Product.php';
-include_once __DIR__ . '/Models/Category.php';
 include_once __DIR__ . '/Models/Food.php';
 include_once __DIR__ . '/Models/Game.php';
 include_once __DIR__ . '/Models/Kennel.php';
@@ -15,6 +13,9 @@ var_dump($categoryCane);
 
 $productFood = new Food('Croccantini', 'cane.jpg', 5.86, $categoryCane, '12/12/2025', 4, ['Pollo Vegano', 'Mix Verdure']);
 var_dump($productFood);
+
+$productGame = new Game('Osso Finto', 'osso.jpg', 11.51, $categoryCane, '10x40cm', ['plastic', 'rubber']);
+var_dump($productGame);
 ?>
 
 <!DOCTYPE html>
