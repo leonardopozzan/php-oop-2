@@ -21,7 +21,7 @@ class Game extends Product{
         if(strlen($size)){
             $this->size = $size;
         }else{
-            $this->size = "0x0cm";
+            $this->size = "Piccolo";
         }
         return $this;
     }

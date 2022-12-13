@@ -16,8 +16,8 @@ $productGame = new Game('Corde di diverse lunghezze', 'gioco-cane.jpg', 16.37, $
 $productGame2 = new Game('Pallina volante', 'gioco-gatto.jpg', 29.99, $categoryGatto, '50x50cm', ['Plastica', 'Metallo','Cotone']);
 // var_dump($productGame);
 
-$productKennel = new Kennel('Cuccia con tetto', 'cuccia-cane.jpg', 114.50 , $categoryCane, '60x110x70cm', 65 , ['Legno di Betulla']);
-$productKennel2 = new Kennel('Cuccia chiusa con pelo', 'cuccia-gatto.jpg', 45 , $categoryGatto, '50x60x50cm', 30 , ['Cotone']);
+$productKennel = new Kennel('Cuccia con tetto', '', -114.50 , $categoryCane, '60x110x70cm', 65 , ['Legno di Betulla']);
+$productKennel2 = new Kennel('Cuccia chiusa con pelo', 'cuccia-gatto.jpg', 45 , $categoryGatto, '', 30 , []);
 // var_dump($productKennel);
 ?>
 
@@ -118,6 +118,46 @@ $productKennel2 = new Kennel('Cuccia chiusa con pelo', 'cuccia-gatto.jpg', 45 , 
                     <div class="price"><?php echo $productGame2->getPrice() . ' €'  ?></div>
                     <div><?php echo '<span>Dimensioni:</span> ' . $productGame2->getsize()  ?></div>
                     <div><?php echo '<span>Materiali:</span> '; foreach($productGame2->getmaterial() as $ingredient) echo $ingredient . ' '?></div>
+                </div>
+            </div>
+            <div class="my-card">
+                <div><img src="./img/<?php echo $productKennel->category->getIcon() ?>" alt="" class="logo"></div>
+                <div><img src="./img/<?php echo $productKennel->getImage() ?>" alt="" class="img-box"></div>
+                <div class="p-2 info">
+                    <div class="title"><?php echo $productKennel->getTitle()  ?></div>
+                    <div>
+                        <?php 
+                        if($productKennel->getAvaliable()){
+                            echo "<span class='text-success'>Available</span>";
+                        }else{
+                            echo "<span class='text-danger'>Not Available</span>";
+                        }
+                        ?>
+                    </div>
+                    <div class="price"><?php echo $productKennel->getPrice() . ' €'  ?></div>
+                    <div><?php echo ($productKennel->getWeight()) ? ($productKennel->getWeight() . ' Kg') : 'Leggero'?></div>
+                    <div><?php echo '<span>Dimensioni:</span> ' . $productKennel->getsize()  ?></div>
+                    <div><?php echo '<span>Materiali:</span> '; foreach($productKennel->getmaterial() as $ingredient) echo $ingredient . ' '?></div>
+                </div>
+            </div>
+            <div class="my-card">
+                <div><img src="./img/<?php echo $productKennel2->category->getIcon() ?>" alt="" class="logo"></div>
+                <div><img src="./img/<?php echo $productKennel2->getImage() ?>" alt="" class="img-box"></div>
+                <div class="p-2 info">
+                    <div class="title"><?php echo $productKennel2->getTitle()  ?></div>
+                    <div>
+                        <?php 
+                        if($productKennel2->getAvaliable()){
+                            echo "<span class='text-success'>Available</span>";
+                        }else{
+                            echo "<span class='text-danger'>Not Available</span>";
+                        }
+                        ?>
+                    </div>
+                    <div class="price"><?php echo $productKennel2->getPrice() . ' €'  ?></div>
+                    <div><?php echo ($productKennel2->getWeight()) ? ($productKennel2->getWeight() . ' Kg') : 'Leggero'?></div>
+                    <div><?php echo '<span>Dimensioni:</span> ' . $productKennel2->getsize()  ?></div>
+                    <div><?php echo '<span>Materiali:</span> '; foreach($productKennel2->getmaterial() as $ingredient) echo $ingredient . ' '?></div>
                 </div>
             </div>
         </div>
