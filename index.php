@@ -1,4 +1,13 @@
-<?php 
+<?php
+include_once __DIR__ . './Models/Product.php';
+
+$categroryGatto = new Category('Cane');
+$categroryCane = new Category('Gatto');
+var_dump($categroryGatto);
+var_dump($categroryCane);
+
+$product = new Product('Croccantini', 'cane.jpg', 5.86, $categroryCane);
+var_dump($product);
 
 ?>
 
