@@ -5,11 +5,13 @@ class User{
     private string $password;
     private static float $discount = 0.2;
     private PaymentCard $paymentCard;
+    private bool $validPayment;
     function __construct(string $_email,string $_password, PaymentCard $_paymentCard)
     {
         $this->setEmail($_email);
         $this->setPassword($_password);
         $this->paymentCard = $_paymentCard;
+        $this->setValidPayment($_paymentCard->getExpireDate());
     }
     public function getEmail()
     {
@@ -40,6 +42,21 @@ class User{
     public function setPaymentCard(PaymentCard $paymentCard)
     {
         $this->paymentCard = $paymentCard;
+        return $this;
+    }
+    public function getValidPayment()
+    {
+        return $this->validPayment;
+    }
+    public function setValidPayment($expireDate)
+    {
+        $dateNow = new DateTime("now");
+        $date = new DateTime($expireDate);
+        if($dateNow < $date){
+            $this->validPayment = true;
+        }else{
+            $this->validPayment = false;
+        }
         return $this;
     }
 }
