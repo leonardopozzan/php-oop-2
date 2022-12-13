@@ -1,9 +1,8 @@
 <?php
-include_once __DIR__ . '/Category.php';
 class Product {
-    private String $title;
-    private String $image;
-    private Float $price;
+    protected String $title;
+    protected String $image;
+    protected Float $price;
     public Category $category;
 
     function __construct(String $_title, String $_image, Float $_price, Category $_category)

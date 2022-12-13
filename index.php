@@ -1,14 +1,20 @@
 <?php
-include_once __DIR__ . './Models/Product.php';
+include_once __DIR__ . '/Models/Product.php';
+include_once __DIR__ . '/Models/Category.php';
+include_once __DIR__ . '/Models/Food.php';
+include_once __DIR__ . '/Models/Game.php';
+include_once __DIR__ . '/Models/Kennel.php';
 
-$categroryGatto = new Category('Cane');
-$categroryCane = new Category('Gatto');
-var_dump($categroryGatto);
-var_dump($categroryCane);
+$categoryGatto = new Category('Gatto');
+$categoryCane = new Category('Cane');
+var_dump($categoryGatto);
+var_dump($categoryCane);
 
-$product = new Product('Croccantini', 'cane.jpg', 5.86, $categroryCane);
-var_dump($product);
+// $product = new Product('Croccantini', 'cane.jpg', 5.86, $categroryCane);
+// var_dump($product);
 
+$productFood = new Food('Croccantini', 'cane.jpg', 5.86, $categoryCane, '12/12/2025', 4, ['Pollo Vegano', 'Mix Verdure']);
+var_dump($productFood);
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +30,7 @@ var_dump($product);
     <script src='https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js'></script>
     <script src='https://unpkg.com/vue@3/dist/vue.global.js'></script>
     <script src='./js/script.js' defer></script>
-    <title>Document</title>
+    <title>E-Commerce</title>
 </head>
 
 <body>
