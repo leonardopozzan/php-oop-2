@@ -5,11 +5,11 @@ class Kennel extends Product{
     private String $size;
     private Int|null $weight;
     private Array $material;
-    function __construct(String $_title, String $_image, Float $_price, Category $_category,String $_size,Int $_removable, Array $_material)
+    function __construct(String $_title, String $_image, Float $_price, Category $_category,String $_size,Int $_weight, Array $_material)
     {
         parent::__construct($_title, $_image, $_price, $_category);
         $this->setsize($_size);
-        $this->setremovable($_removable);
+        $this->setweight($_weight);
         $this->setmaterial($_material);
     }
     public function getsize()
@@ -25,11 +25,11 @@ class Kennel extends Product{
         }
         return $this;
     }
-    public function getremovable()
+    public function getweight()
     {
         return $this->weight;
     }
-    public function setremovable($weight)
+    public function setweight($weight)
     {
         if($weight > 0){
             $this->weight = $weight;
