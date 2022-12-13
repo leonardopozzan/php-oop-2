@@ -14,8 +14,11 @@ var_dump($categoryCane);
 $productFood = new Food('Croccantini', 'cane.jpg', 5.86, $categoryCane, '12/12/2025', 4, ['Pollo Vegano', 'Mix Verdure']);
 var_dump($productFood);
 
-$productGame = new Game('Osso Finto', 'osso.jpg', 11.51, $categoryCane, '10x40cm', ['plastic', 'rubber']);
+$productGame = new Game('Osso Finto', 'osso.jpg', 11.51, $categoryCane, '10x40cm', ['plastica', 'gomma']);
 var_dump($productGame);
+
+$productKennel = new Game('Cuccia con tette', 'cuccia.jpg', 55 , $categoryCane, '40x90x50cm', ['legno']);
+var_dump($productKennel);
 ?>
 
 <!DOCTYPE html>
