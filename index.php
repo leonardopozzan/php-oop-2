@@ -2,6 +2,17 @@
 include_once __DIR__ . '/Models/Food.php';
 include_once __DIR__ . '/Models/Game.php';
 include_once __DIR__ . '/Models/Kennel.php';
+include_once __DIR__ . '/Models/User.php';
+
+if (isset($_POST['password']) && isset($_POST['email']) && isset($_POST['cardNumber']) && isset($_POST['expireDate'])){
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $cardNumber = $_POST['cardNumber'];
+    $expireDate = $_POST['expireDate'];
+    $paymentCard = new PaymentCard($cardNumber,$expireDate);
+    $user = new User($email,$password,$paymentCard);
+}
+
 
 $categoryGatto = new Category('Gatto','icon-cat.png');
 $categoryCane = new Category('Cane','icon-dog.png');
@@ -12,7 +23,7 @@ $productFood = new Food('Croccantini per taglia media', 'croccantini-cane.jpg', 
 $productFood2 = new Food('Croccantini naturali bio', 'croccantini-gatto.jpg', 4.53, $categoryGatto, -2, ['Pollo Vegano', 'Mix Verdure'],'2025-04-15');
 // var_dump($productFood);
 
-$productGame = new Game('Corde di diverse lunghezze', 'gioco-cane.jpg', 16.37, $categoryCane, 'Varibile', ['Stoffa', 'Corda']);
+$productGame = new Game('Corde di diverse lunghezze', 'gioco-cane.jpg', 16.37, $categoryCane, 'Variabile', ['Stoffa', 'Corda']);
 $productGame2 = new Game('Pallina volante', 'gioco-gatto.jpg', 29.99, $categoryGatto, '50x50cm', ['Plastica', 'Metallo','Cotone']);
 // var_dump($productGame);
 
@@ -39,9 +50,34 @@ $productKennel2 = new Kennel('Cuccia chiusa con pelo', 'cuccia-gatto.jpg', 45 , 
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" id="app">
         <h1 class="text-center my-5 text-uppercase">Il tuo negozio sempre con te</h1>
-        <div class="row">
+        <div class="form" v-if="viewForm != 'guest' && viewForm != 'userLogged'">
+            <div class="inner-form">
+                <div v-show="viewForm == 'login'">
+                    <button class="btn btn-dark me-5" @click="setView('guest')">Entra come Ospite</button>
+                    <button class="btn btn-dark ms-5 " @click="setView('user')">Registrati</button>
+                </div>
+                <div v-show="viewForm == 'user'">
+                    <form action="index.php" method="post">
+                        <div class="row">
+                            <label for="" class="p-0">Indirizzo e-mail</label>
+                            <input type="email" class="p-0" required name="email">
+                            <label for="" class="p-0">Password</label>
+                            <input type="text" class="p-0" required name="password">
+                        </div>
+                        <div class="row">
+                            <label for="" class="p-0">Numero della carta</label>
+                            <input type="text" class="p-0" required name="cardNumber">
+                            <label for="" class="p-0">Data di scadenza della carta</label>
+                            <input type="text" class="p-0" required name="expireDate">
+                        </div>
+                        <button class="btn btn-dark mt-2 w-100" @click.prevent="setView('userLogged')">Invia</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row" v-if="viewForm == 'guest' || viewForm == 'userLogged'">
             <div class="my-card">
                 <div><img src="./img/<?php echo $productFood->category->getIcon() ?>" alt="" class="logo"></div>
                 <div><img src="./img/<?php echo $productFood->getImage() ?>" alt="" class="img-box"></div>

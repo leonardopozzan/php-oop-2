@@ -11,6 +11,18 @@ body{
 img{
     max-width: 100%;
 }
+/****************** form *******************/
+.form{
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 2rem;
+}
+.inner-form{
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 /****************** card *******************/
 .my-card{
     background-color: white;
