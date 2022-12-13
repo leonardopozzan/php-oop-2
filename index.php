@@ -11,7 +11,7 @@ var_dump($categoryCane);
 // $product = new Product('Croccantini', 'cane.jpg', 5.86, $categroryCane);
 // var_dump($product);
 
-$productFood = new Food('Croccantini', 'cane.jpg', 5.86, $categoryCane, '12/12/2025', 4, ['Pollo Vegano', 'Mix Verdure']);
+$productFood = new Food('Croccantini', 'cane.jpg', 5.86, $categoryCane, -4, ['Pollo Vegano', 'Mix Verdure'],'2025-06-25');
 var_dump($productFood);
 
 $productGame = new Game('Osso Finto', 'osso.jpg', 11.51, $categoryCane, '10x40cm', ['plastica', 'gomma']);

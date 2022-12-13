@@ -3,7 +3,7 @@ include_once __DIR__ . '/Product.php';
 
 class Kennel extends Product{
     private String $size;
-    private Int $weight;
+    private Int|null $weight;
     private Array $material;
     function __construct(String $_title, String $_image, Float $_price, Category $_category,String $_size,Int $_removable, Array $_material)
     {
@@ -12,15 +12,17 @@ class Kennel extends Product{
         $this->setremovable($_removable);
         $this->setmaterial($_material);
     }
-
     public function getsize()
     {
         return $this->size;
     }
-
     public function setsize($size)
     {
-        $this->size = $size;
+        if(strlen($size)){
+            $this->size = $size;
+        }else{
+            $this->size = "0x0cm";
+        }
         return $this;
     }
     public function getremovable()
@@ -29,7 +31,11 @@ class Kennel extends Product{
     }
     public function setremovable($weight)
     {
-        $this->weight = $weight;
+        if($weight > 0){
+            $this->weight = $weight;
+        }else{
+            $this->weight = null;
+        }
         return $this;
     }
     public function getmaterial()
@@ -38,7 +44,11 @@ class Kennel extends Product{
     }
     public function setmaterial($material)
     {
-        $this->material = $material;
+        if(count($material)){
+            $this->material = $material;
+        }else{
+            $this->material = ["Unknown"];
+        }
         return $this;
     }
 }

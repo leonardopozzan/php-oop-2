@@ -14,7 +14,11 @@ class Category{
     }
     public function setSpecies($species)
     {
-        $this->species = $species;
+        if(strlen($species)){
+            $this->species = $species;
+        }else{
+            $this->species = 'Unknown';
+        }
         return $this;
     }
 }

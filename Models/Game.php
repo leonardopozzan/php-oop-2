@@ -18,7 +18,11 @@ class Game extends Product{
 
     public function setsize($size)
     {
-        $this->size = $size;
+        if(strlen($size)){
+            $this->size = $size;
+        }else{
+            $this->size = "0x0cm";
+        }
         return $this;
     }
     public function getmaterial()
@@ -27,7 +31,11 @@ class Game extends Product{
     }
     public function setmaterial($material)
     {
-        $this->material = $material;
+        if(count($material)){
+            $this->material = $material;
+        }else{
+            $this->material = ["Unknown"];
+        }
         return $this;
     }
 }
