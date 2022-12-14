@@ -40,6 +40,8 @@ $productKennel2 = new Kennel('Cuccia chiusa con pelo', 'cuccia-gatto.jpg', 45 , 
 $productKennel->setsize('60x110x70cm');
 $productKennel2->setsize('');
 // var_dump($productKennel);
+
+$products = [$productFood ,$productFood2 ,$productGame ,$productGame2 ,$productKennel ,$productKennel2 ,]
 ?>
 
 <!DOCTYPE html>
@@ -63,124 +65,45 @@ $productKennel2->setsize('');
     <div class="container" id="app">
         <h1 class="text-center my-5 text-uppercase">Il tuo negozio sempre con te</h1>
         <div class="row">
+            <?php foreach ($products as $product) { ?>
             <div class="my-card">
-                <div><img src="./img/<?php echo $productFood->category->getIcon() ?>" alt="" class="logo"></div>
-                <div><img src="./img/<?php echo $productFood->getImage() ?>" alt="" class="img-box"></div>
+                <div>
+                    <img src="./img/<?php echo $product->category->getIcon() ?>" alt="" class="logo">
+                </div>
+                <div>
+                    <img src="./img/<?php echo $product->getImage() ?>" alt="" class="img-box"></div>
                 <div class="p-2 info">
-                    <div class="title"><?php echo $productFood->getTitle()  ?></div>
+                    <div class="title"><?php echo $product->getTitle() ?></div>
                     <div>
-                        <?php 
-                        if($productFood->getAvaliable()){
-                            echo "<span class='text-success'>Available</span>";
-                        }else{
-                            echo "<span class='text-danger'>Not Available</span>";
-                        }
+                        <?php
+                            if ($product->getAvaliable()) {
+                                echo "<span class='text-success'>Available</span>";
+                            } else {
+                                echo "<span class='text-danger'>Not Available</span>";
+                            }
                         ?>
                     </div>
-                    <div class="price"><?php echo $productFood->getPrice() . ' €'  ?></div>
-                    <div><?php echo ($productFood->getWeight()) ? ($productFood->getWeight() . ' Kg') : 'Leggero'?></div>
-                    <div><?php echo $productFood->getExpirationDate()  ?></div>
-                    <div><?php echo '<span>Ingredienti:</span> '; foreach($productFood->getIngredients() as $ingredient) echo $ingredient . ' '?></div>
+                    <div class="price"><?php echo $product->getPrice() . ' €' ?></div>
+                    <div><?php if (get_class($product) == 'Food') {
+                    echo $product->getExpirationDate();
+                    }else if (get_class($product) == 'Kennel'){
+                    echo ($product->getWeight()) ? ($product->getWeight() . ' Kg') : 'Leggero';
+                    } ?></div>
+                    <div><?php if (get_class($product) == 'Food') {
+                    echo ($product->getWeight()) ? ($product->getWeight() . ' Kg') : 'Leggero';
+                    } else {
+                    echo '<span>Dimensioni:</span> ' . $productGame->getsize();
+                    }?></div>
+                    <div><?php if(get_class($product) == 'Food'){
+                        echo '<span>Ingredienti:</span> ';
+                        foreach ($product->getIngredients() as $ingredient) echo $ingredient . ' ' ;
+                        }else{ 
+                            echo '<span>Materiali:</span> '; 
+                            foreach($productGame->getmaterial() as $ingredient) echo $ingredient . ' ';
+                        }?></div>
                 </div>
             </div>
-            <div class="my-card">
-                <div><img src="./img/<?php echo $productFood2->category->getIcon() ?>" alt="" class="logo"></div>
-                <div><img src="./img/<?php echo $productFood2->getImage() ?>" alt="" class="img-box"></div>
-                <div class="p-2 info">
-                    <div class="title"><?php echo $productFood2->getTitle()  ?></div>
-                    <div>
-                        <?php 
-                        if($productFood2->getAvaliable()){
-                            echo "<span class='text-success'>Available</span>";
-                        }else{
-                            echo "<span class='text-danger'>Not Available</span>";
-                        }
-                        ?>
-                    </div>
-                    <div class="price"><?php echo $productFood2->getPrice() . ' €'  ?></div>
-                    <div><?php echo ($productFood2->getWeight()) ? ($productFood2->getWeight() . ' Kg') : 'Leggero'?></div>
-                    <div><?php echo $productFood2->getExpirationDate()  ?></div>
-                    <div><?php echo '<span>Ingredienti:</span> '; foreach($productFood2->getIngredients() as $ingredient) echo $ingredient . ' '?></div>
-                </div>
-            </div>
-            <div class="my-card">
-                <div><img src="./img/<?php echo $productGame->category->getIcon() ?>" alt="" class="logo"></div>
-                <div><img src="./img/<?php echo $productGame->getImage() ?>" alt="" class="img-box"></div>
-                <div class="p-2 info">
-                    <div class="title"><?php echo $productGame->getTitle()  ?></div>
-                    <div>
-                        <?php 
-                        if($productGame->getAvaliable()){
-                            echo "<span class='text-success'>Available</span>";
-                        }else{
-                            echo "<span class='text-danger'>Not Available</span>";
-                        }
-                        ?>
-                    </div>
-                    <div class="price"><?php echo $productGame->getPrice() . ' €'  ?></div>
-                    <div><?php echo '<span>Dimensioni:</span> ' . $productGame->getsize()  ?></div>
-                    <div><?php echo '<span>Materiali:</span> '; foreach($productGame->getmaterial() as $ingredient) echo $ingredient . ' '?></div>
-                </div>
-            </div>
-            <div class="my-card">
-                <div><img src="./img/<?php echo $productGame2->category->getIcon() ?>" alt="" class="logo"></div>
-                <div><img src="./img/<?php echo $productGame2->getImage() ?>" alt="" class="img-box"></div>
-                <div class="p-2 info">
-                    <div class="title"><?php echo $productGame2->getTitle()  ?></div>
-                    <div>
-                        <?php 
-                        if($productGame2->getAvaliable()){
-                            echo "<span class='text-success'>Available</span>";
-                        }else{
-                            echo "<span class='text-danger'>Not Available</span>";
-                        }
-                        ?>
-                    </div>
-                    <div class="price"><?php echo $productGame2->getPrice() . ' €'  ?></div>
-                    <div><?php echo '<span>Dimensioni:</span> ' . $productGame2->getsize()  ?></div>
-                    <div><?php echo '<span>Materiali:</span> '; foreach($productGame2->getmaterial() as $ingredient) echo $ingredient . ' '?></div>
-                </div>
-            </div>
-            <div class="my-card">
-                <div><img src="./img/<?php echo $productKennel->category->getIcon() ?>" alt="" class="logo"></div>
-                <div><img src="./img/<?php echo $productKennel->getImage() ?>" alt="" class="img-box"></div>
-                <div class="p-2 info">
-                    <div class="title"><?php echo $productKennel->getTitle()  ?></div>
-                    <div>
-                        <?php 
-                        if($productKennel->getAvaliable()){
-                            echo "<span class='text-success'>Available</span>";
-                        }else{
-                            echo "<span class='text-danger'>Not Available</span>";
-                        }
-                        ?>
-                    </div>
-                    <div class="price"><?php echo $productKennel->getPrice() . ' €'  ?></div>
-                    <div><?php echo ($productKennel->getWeight()) ? ($productKennel->getWeight() . ' Kg') : 'Leggero'?></div>
-                    <div><?php echo '<span>Dimensioni:</span> ' . $productKennel->getsize()  ?></div>
-                    <div><?php echo '<span>Materiali:</span> '; foreach($productKennel->getmaterial() as $ingredient) echo $ingredient . ' '?></div>
-                </div>
-            </div>
-            <div class="my-card">
-                <div><img src="./img/<?php echo $productKennel2->category->getIcon() ?>" alt="" class="logo"></div>
-                <div><img src="./img/<?php echo $productKennel2->getImage() ?>" alt="" class="img-box"></div>
-                <div class="p-2 info">
-                    <div class="title"><?php echo $productKennel2->getTitle()  ?></div>
-                    <div>
-                        <?php 
-                        if($productKennel2->getAvaliable()){
-                            echo "<span class='text-success'>Available</span>";
-                        }else{
-                            echo "<span class='text-danger'>Not Available</span>";
-                        }
-                        ?>
-                    </div>
-                    <div class="price"><?php echo $productKennel2->getPrice() . ' €'  ?></div>
-                    <div><?php echo ($productKennel2->getWeight()) ? ($productKennel2->getWeight() . ' Kg') : 'Leggero'?></div>
-                    <div><?php echo '<span>Dimensioni:</span> ' . $productKennel2->getsize()  ?></div>
-                    <div><?php echo '<span>Materiali:</span> '; foreach($productKennel2->getmaterial() as $ingredient) echo $ingredient . ' '?></div>
-                </div>
-            </div>
+            <?php }  ?>
         </div>
     </div>
 </body>
