@@ -29,12 +29,16 @@ $productFood = new Food('Croccantini per taglia media', 'croccantini-cane.jpg', 
 $productFood2 = new Food('Croccantini naturali bio', 'croccantini-gatto.jpg', 4.53, $categoryGatto, -2, ['Pollo Vegano', 'Mix Verdure'],'2025-04-15');
 // var_dump($productFood);
 
-$productGame = new Game('Corde di diverse lunghezze', 'gioco-cane.jpg', 16.37, $categoryCane, 'Variabile', ['Stoffa', 'Corda']);
-$productGame2 = new Game('Pallina volante', 'gioco-gatto.jpg', 29.99, $categoryGatto, '50x50cm', ['Plastica', 'Metallo','Cotone']);
+$productGame = new Game('Corde di diverse lunghezze', 'gioco-cane.jpg', 16.37, $categoryCane, ['Stoffa', 'Corda']);
+$productGame2 = new Game('Pallina volante', 'gioco-gatto.jpg', 29.99, $categoryGatto, ['Plastica', 'Metallo','Cotone']);
+$productGame->setsize('Variabile');
+$productGame2->setsize('50x50cm');
 // var_dump($productGame);
 
-$productKennel = new Kennel('Cuccia con tetto', '', -114.50 , $categoryCane, '60x110x70cm', 65 , ['Legno di Betulla']);
-$productKennel2 = new Kennel('Cuccia chiusa con pelo', 'cuccia-gatto.jpg', 45 , $categoryGatto, '', 30 , []);
+$productKennel = new Kennel('Cuccia con tetto', '', -114.50 , $categoryCane, 65 , ['Legno di Betulla']);
+$productKennel2 = new Kennel('Cuccia chiusa con pelo', 'cuccia-gatto.jpg', 45 , $categoryGatto, 30 , []);
+$productKennel->setsize('60x110x70cm');
+$productKennel2->setsize('');
 // var_dump($productKennel);
 ?>
 

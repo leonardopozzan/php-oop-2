@@ -1,29 +1,15 @@
 <?php
 include_once __DIR__ . '/Product.php';
-
+include_once __DIR__ . '/../Traits/Size.php';
 class Kennel extends Product{
-    private String $size;
+    use Size;
     private Int|null $weight;
     private Array $material;
-    function __construct(String $_title, String $_image, Float $_price, Category $_category,String $_size,Int $_weight, Array $_material)
+    function __construct(string $_title, string $_image, float $_price, Category $_category, int $_weight, array $_material)
     {
         parent::__construct($_title, $_image, $_price, $_category);
-        $this->setsize($_size);
         $this->setweight($_weight);
         $this->setmaterial($_material);
-    }
-    public function getsize()
-    {
-        return $this->size;
-    }
-    public function setsize($size)
-    {
-        if(strlen($size)){
-            $this->size = $size;
-        }else{
-            $this->size = "Piccolo";
-        }
-        return $this;
     }
     public function getweight()
     {

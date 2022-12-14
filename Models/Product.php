@@ -6,7 +6,6 @@ class Product {
     protected Float $price;
     public Category $category;
     private bool $avaliable;
-
     function __construct(String $_title, String $_image = null, Float $_price, Category $_category)
     {
         $this->setTitle($_title);

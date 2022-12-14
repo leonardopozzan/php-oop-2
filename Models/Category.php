@@ -3,7 +3,6 @@
 class Category{
     private String $species;
     private string $icon;
-
     function __construct(String $_species, string $_icon = 'default.jpg')
     {
         $this->setSpecies($_species);

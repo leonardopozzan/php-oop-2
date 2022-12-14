@@ -1,6 +1,6 @@
 <?php  
-$date = new DateTime("2022-02");
-var_dump($date);
+// $date = new DateTime("2022-02");
+// var_dump($date);
 ?>
 
 <!DOCTYPE html>

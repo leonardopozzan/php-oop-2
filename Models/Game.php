@@ -1,13 +1,13 @@
 <?php
 include_once __DIR__ . '/Product.php';
+include_once __DIR__ . '/../Traits/Size.php';
 class Game extends Product{
-    private String $size;
+    use Size;
     private Array $material;
 
-    function __construct(String $_title, String $_image, Float $_price, Category $_category,String $_size, Array $_material)
+    function __construct(String $_title, String $_image, Float $_price, Category $_category, Array $_material)
     {
         parent::__construct($_title, $_image, $_price, $_category);
-        $this->setsize($_size);
         $this->setmaterial($_material);
     }
 
