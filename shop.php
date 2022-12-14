@@ -70,7 +70,7 @@ include __DIR__ . '/partials/head.php';
             <?php foreach ($products as $product) { ?>
             <div class="my-card">
                 <form action="shop.php" method="post" class="my-btn">
-                    <button>Add</button>
+                    <button class="btn-primary btn">Add</button>
                     <input type="text" hidden value="<?php echo $product->getTitle()  ?>" name="product">
                 </form>
                 <div>

@@ -23,6 +23,10 @@ img{
     align-items: center;
     justify-content: center;
 }
+.my-btn{
+    position: absolute;
+    top: 10px; left: 10px;
+}
 /****************** card *******************/
 .my-card{
     background-color: white;
