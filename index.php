@@ -1,35 +1,6 @@
-<?php
-include_once __DIR__ . '/Models/Food.php';
-include_once __DIR__ . '/Models/Game.php';
-include_once __DIR__ . '/Models/Kennel.php';
-include_once __DIR__ . '/Models/User.php';
-
-if (isset($_POST['password']) && isset($_POST['email']) && isset($_POST['cardNumber']) && isset($_POST['expireDate'])){
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $cardNumber = $_POST['cardNumber'];
-    $expireDate = $_POST['expireDate'];
-    $paymentCard = new PaymentCard($cardNumber,$expireDate);
-    $user = new User($email,$password,$paymentCard);
-}
-
-
-$categoryGatto = new Category('Gatto','icon-cat.png');
-$categoryCane = new Category('Cane','icon-dog.png');
-// var_dump($categoryGatto);
-// var_dump($categoryCane);
-
-$productFood = new Food('Croccantini per taglia media', 'croccantini-cane.jpg', -20.86, $categoryCane, 16, ['Carne di Manzo', 'Mix Verdure'],'2022-10-25');
-$productFood2 = new Food('Croccantini naturali bio', 'croccantini-gatto.jpg', 4.53, $categoryGatto, -2, ['Pollo Vegano', 'Mix Verdure'],'2025-04-15');
-// var_dump($productFood);
-
-$productGame = new Game('Corde di diverse lunghezze', 'gioco-cane.jpg', 16.37, $categoryCane, 'Variabile', ['Stoffa', 'Corda']);
-$productGame2 = new Game('Pallina volante', 'gioco-gatto.jpg', 29.99, $categoryGatto, '50x50cm', ['Plastica', 'Metallo','Cotone']);
-// var_dump($productGame);
-
-$productKennel = new Kennel('Cuccia con tetto', '', -114.50 , $categoryCane, '60x110x70cm', 65 , ['Legno di Betulla']);
-$productKennel2 = new Kennel('Cuccia chiusa con pelo', 'cuccia-gatto.jpg', 45 , $categoryGatto, '', 30 , []);
-// var_dump($productKennel);
+<?php  
+$date = new DateTime("2022-02");
+var_dump($date);
 ?>
 
 <!DOCTYPE html>
@@ -52,149 +23,29 @@ $productKennel2 = new Kennel('Cuccia chiusa con pelo', 'cuccia-gatto.jpg', 45 , 
 <body>
     <div class="container" id="app">
         <h1 class="text-center my-5 text-uppercase">Il tuo negozio sempre con te</h1>
-        <div class="form" v-if="viewForm != 'guest' && viewForm != 'userLogged'">
+        <div class="form">
             <div class="inner-form">
-                <div v-show="viewForm == 'login'">
-                    <button class="btn btn-dark me-5" @click="setView('guest')">Entra come Ospite</button>
-                    <button class="btn btn-dark ms-5 " @click="setView('user')">Registrati</button>
-                </div>
-                <div v-show="viewForm == 'user'">
-                    <form action="index.php" method="post">
-                        <div class="row">
-                            <label for="" class="p-0">Indirizzo e-mail</label>
-                            <input type="email" class="p-0" required name="email">
-                            <label for="" class="p-0">Password</label>
-                            <input type="text" class="p-0" required name="password">
-                        </div>
-                        <div class="row">
-                            <label for="" class="p-0">Numero della carta</label>
-                            <input type="text" class="p-0" required name="cardNumber">
-                            <label for="" class="p-0">Data di scadenza della carta</label>
-                            <input type="text" class="p-0" required name="expireDate">
-                        </div>
-                        <button class="btn btn-dark mt-2 w-100" @click.prevent="setView('userLogged')">Invia</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="row" v-if="viewForm == 'guest' || viewForm == 'userLogged'">
-            <div class="my-card">
-                <div><img src="./img/<?php echo $productFood->category->getIcon() ?>" alt="" class="logo"></div>
-                <div><img src="./img/<?php echo $productFood->getImage() ?>" alt="" class="img-box"></div>
-                <div class="p-2 info">
-                    <div class="title"><?php echo $productFood->getTitle()  ?></div>
-                    <div>
-                        <?php 
-                        if($productFood->getAvaliable()){
-                            echo "<span class='text-success'>Available</span>";
-                        }else{
-                            echo "<span class='text-danger'>Not Available</span>";
-                        }
-                        ?>
+                <form action="shop.php" method="post" v-show="viewForm == 'login'">
+                    <input type="text" hidden name="guest" value="guest">
+                    <button class="btn btn-dark">Entra come Ospite</button>
+                </form>
+                <button class="btn btn-dark ms-5 " @click="setView('user')" v-show="viewForm == 'login'">Registrati</button>
+                <form action="shop.php" method="post" v-show="viewForm == 'user'">
+                    <div class="row">
+                        <label for="" class="p-0">Indirizzo e-mail</label>
+                        <input type="email" class="p-0" required name="email">
+                        <label for="" class="p-0">Password</label>
+                        <input type="password" class="p-0" required name="password">
                     </div>
-                    <div class="price"><?php echo $productFood->getPrice() . ' €'  ?></div>
-                    <div><?php echo ($productFood->getWeight()) ? ($productFood->getWeight() . ' Kg') : 'Leggero'?></div>
-                    <div><?php echo $productFood->getExpirationDate()  ?></div>
-                    <div><?php echo '<span>Ingredienti:</span> '; foreach($productFood->getIngredients() as $ingredient) echo $ingredient . ' '?></div>
-                </div>
-            </div>
-            <div class="my-card">
-                <div><img src="./img/<?php echo $productFood2->category->getIcon() ?>" alt="" class="logo"></div>
-                <div><img src="./img/<?php echo $productFood2->getImage() ?>" alt="" class="img-box"></div>
-                <div class="p-2 info">
-                    <div class="title"><?php echo $productFood2->getTitle()  ?></div>
-                    <div>
-                        <?php 
-                        if($productFood2->getAvaliable()){
-                            echo "<span class='text-success'>Available</span>";
-                        }else{
-                            echo "<span class='text-danger'>Not Available</span>";
-                        }
-                        ?>
+                    <div class="row">
+                        <label for="" class="p-0">Numero della carta</label>
+                        <input type="text" class="p-0" required name="cardNumber">
+                        <label for="" class="p-0">Data di scadenza della carta (es. 2025-05)</label>
+                        <input type="text" class="p-0" required name="expireDate">
                     </div>
-                    <div class="price"><?php echo $productFood2->getPrice() . ' €'  ?></div>
-                    <div><?php echo ($productFood2->getWeight()) ? ($productFood2->getWeight() . ' Kg') : 'Leggero'?></div>
-                    <div><?php echo $productFood2->getExpirationDate()  ?></div>
-                    <div><?php echo '<span>Ingredienti:</span> '; foreach($productFood2->getIngredients() as $ingredient) echo $ingredient . ' '?></div>
-                </div>
-            </div>
-            <div class="my-card">
-                <div><img src="./img/<?php echo $productGame->category->getIcon() ?>" alt="" class="logo"></div>
-                <div><img src="./img/<?php echo $productGame->getImage() ?>" alt="" class="img-box"></div>
-                <div class="p-2 info">
-                    <div class="title"><?php echo $productGame->getTitle()  ?></div>
-                    <div>
-                        <?php 
-                        if($productGame->getAvaliable()){
-                            echo "<span class='text-success'>Available</span>";
-                        }else{
-                            echo "<span class='text-danger'>Not Available</span>";
-                        }
-                        ?>
-                    </div>
-                    <div class="price"><?php echo $productGame->getPrice() . ' €'  ?></div>
-                    <div><?php echo '<span>Dimensioni:</span> ' . $productGame->getsize()  ?></div>
-                    <div><?php echo '<span>Materiali:</span> '; foreach($productGame->getmaterial() as $ingredient) echo $ingredient . ' '?></div>
-                </div>
-            </div>
-            <div class="my-card">
-                <div><img src="./img/<?php echo $productGame2->category->getIcon() ?>" alt="" class="logo"></div>
-                <div><img src="./img/<?php echo $productGame2->getImage() ?>" alt="" class="img-box"></div>
-                <div class="p-2 info">
-                    <div class="title"><?php echo $productGame2->getTitle()  ?></div>
-                    <div>
-                        <?php 
-                        if($productGame2->getAvaliable()){
-                            echo "<span class='text-success'>Available</span>";
-                        }else{
-                            echo "<span class='text-danger'>Not Available</span>";
-                        }
-                        ?>
-                    </div>
-                    <div class="price"><?php echo $productGame2->getPrice() . ' €'  ?></div>
-                    <div><?php echo '<span>Dimensioni:</span> ' . $productGame2->getsize()  ?></div>
-                    <div><?php echo '<span>Materiali:</span> '; foreach($productGame2->getmaterial() as $ingredient) echo $ingredient . ' '?></div>
-                </div>
-            </div>
-            <div class="my-card">
-                <div><img src="./img/<?php echo $productKennel->category->getIcon() ?>" alt="" class="logo"></div>
-                <div><img src="./img/<?php echo $productKennel->getImage() ?>" alt="" class="img-box"></div>
-                <div class="p-2 info">
-                    <div class="title"><?php echo $productKennel->getTitle()  ?></div>
-                    <div>
-                        <?php 
-                        if($productKennel->getAvaliable()){
-                            echo "<span class='text-success'>Available</span>";
-                        }else{
-                            echo "<span class='text-danger'>Not Available</span>";
-                        }
-                        ?>
-                    </div>
-                    <div class="price"><?php echo $productKennel->getPrice() . ' €'  ?></div>
-                    <div><?php echo ($productKennel->getWeight()) ? ($productKennel->getWeight() . ' Kg') : 'Leggero'?></div>
-                    <div><?php echo '<span>Dimensioni:</span> ' . $productKennel->getsize()  ?></div>
-                    <div><?php echo '<span>Materiali:</span> '; foreach($productKennel->getmaterial() as $ingredient) echo $ingredient . ' '?></div>
-                </div>
-            </div>
-            <div class="my-card">
-                <div><img src="./img/<?php echo $productKennel2->category->getIcon() ?>" alt="" class="logo"></div>
-                <div><img src="./img/<?php echo $productKennel2->getImage() ?>" alt="" class="img-box"></div>
-                <div class="p-2 info">
-                    <div class="title"><?php echo $productKennel2->getTitle()  ?></div>
-                    <div>
-                        <?php 
-                        if($productKennel2->getAvaliable()){
-                            echo "<span class='text-success'>Available</span>";
-                        }else{
-                            echo "<span class='text-danger'>Not Available</span>";
-                        }
-                        ?>
-                    </div>
-                    <div class="price"><?php echo $productKennel2->getPrice() . ' €'  ?></div>
-                    <div><?php echo ($productKennel2->getWeight()) ? ($productKennel2->getWeight() . ' Kg') : 'Leggero'?></div>
-                    <div><?php echo '<span>Dimensioni:</span> ' . $productKennel2->getsize()  ?></div>
-                    <div><?php echo '<span>Materiali:</span> '; foreach($productKennel2->getmaterial() as $ingredient) echo $ingredient . ' '?></div>
-                </div>
+                    <button class="btn btn-dark my-2 w-100">Invia</button>
+                    <button class="btn btn-dark" @click.prevent="setView('login')">Indietro</button>
+                </form>
             </div>
         </div>
     </div>
