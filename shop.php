@@ -4,6 +4,8 @@ include_once __DIR__ . '/Models/Game.php';
 include_once __DIR__ . '/Models/Kennel.php';
 include_once __DIR__ . '/Models/PremiumUser.php';
 
+$filePath = './data/customers.json';
+
 if (isset($_POST['password']) && isset($_POST['email']) && isset($_POST['cardNumber']) && isset($_POST['expireDate'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -11,14 +13,23 @@ if (isset($_POST['password']) && isset($_POST['email']) && isset($_POST['cardNum
     $expireDate = $_POST['expireDate'];
     $paymentCard = new PaymentCard($cardNumber,$expireDate);
     $premiumUser = new PremiumUser($email,$password,$paymentCard);
-    var_dump($paymentCard);
-    var_dump($premiumUser);
+    $premiumUserTxt = json_encode(serialize($premiumUser));
+    file_put_contents($filePath, $premiumUserTxt);
+    // var_dump($paymentCard);
+    // var_dump($premiumUser);
 }
 if(isset($_POST['guest'])){
     $user = new User();
     var_dump($user);
 }
+if(isset($_POST['product'])){
+    $myProduct = $_POST['product'];
+    var_dump($myProduct);
+}
 
+$textFile = file_get_contents($filePath);
+$customer =unserialize(json_decode($textFile));
+var_dump($customer);
 
 $categoryGatto = new Category('Gatto','icon-cat.png');
 $categoryCane = new Category('Cane','icon-dog.png');
@@ -52,6 +63,10 @@ include __DIR__ . '/partials/head.php';
         <div class="row">
             <?php foreach ($products as $product) { ?>
             <div class="my-card">
+                <form action="shop.php" method="post" class="my-btn">
+                    <button>Add</button>
+                    <input type="text" hidden value="<?php echo $product->getTitle()  ?>" name="product">
+                </form>
                 <div>
                     <img src="./img/<?php echo $product->category->getIcon() ?>" alt="" class="logo">
                 </div>
