@@ -20,11 +20,17 @@ if (isset($_POST['password']) && isset($_POST['email']) && isset($_POST['cardNum
 }
 if(isset($_POST['guest'])){
     $user = new User();
-    var_dump($user);
+    $userTxt = json_encode(serialize($user));
+    file_put_contents($filePath, $userTxt);
 }
 if(isset($_POST['product'])){
     $myProduct = $_POST['product'];
-    var_dump($myProduct);
+    $textFile = file_get_contents($filePath);
+    $customer = unserialize(json_decode($textFile));
+    $customer->addToCart($myProduct);
+    $customerTxt = json_encode(serialize($customer));
+    file_put_contents($filePath, $customerTxt);
+    // var_dump($myProduct);
 }
 
 $textFile = file_get_contents($filePath);

@@ -7,7 +7,7 @@ class User{
         return $this->cart;
     }
 
-    public function addToCart(Product $product)
+    public function addToCart(String $product)
     {
         array_push($this->cart, $product);
     }
